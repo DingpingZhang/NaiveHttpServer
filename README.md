@@ -1,4 +1,4 @@
-# NaiveHttpServer
+# NaiveHttpServer [![version](https://img.shields.io/badge/version-0.1.0-orange)](https://www.nuget.org/packages/NaiveHttpServer)
 
 A simple C# http server based on the HttpListener.
 
