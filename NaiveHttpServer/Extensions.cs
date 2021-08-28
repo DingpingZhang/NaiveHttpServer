@@ -1,10 +1,10 @@
-﻿using System.IO;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public static class Extensions
     {

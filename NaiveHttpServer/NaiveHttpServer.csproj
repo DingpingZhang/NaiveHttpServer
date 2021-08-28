@@ -11,8 +11,8 @@
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Authors>Dingping Zhang</Authors>
     <Copyright>Copyright (c) 2020-2021 Dingping Zhang</Copyright>
-    <PackageProjectUrl>https://github.com/DingpingZhang/SimpleHttpServer</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DingpingZhang/SimpleHttpServer</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/DingpingZhang/NaiveHttpServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DingpingZhang/NaiveHttpServer</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>A simple C# http server based on the HttpListener.</Description>

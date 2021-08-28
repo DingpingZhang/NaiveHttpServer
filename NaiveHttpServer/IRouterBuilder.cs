@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public interface IRouterBuilder
     {

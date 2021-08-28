@@ -1,4 +1,4 @@
-﻿namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public static class HttpMethods
     {

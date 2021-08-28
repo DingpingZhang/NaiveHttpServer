@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public static class FileHelper
     {

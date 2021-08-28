@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public delegate Task Middleware<in T>(T ctx, Func<Task> next);
 

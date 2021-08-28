@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public interface ILogger
     {

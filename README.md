@@ -1,4 +1,4 @@
-# SimpleHttpServer
+# NaiveHttpServer
 
 A simple C# http server based on the HttpListener.
 

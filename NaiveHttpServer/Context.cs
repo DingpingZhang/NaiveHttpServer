@@ -1,6 +1,6 @@
-﻿using System.Net;
+using System.Net;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public delegate bool ParameterProvider(string key, out string value);
 

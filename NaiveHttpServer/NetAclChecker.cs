@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public static class NetAclChecker
     {

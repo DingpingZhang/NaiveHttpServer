@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Threading;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     internal class DefaultLogger : ILogger
     {

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SimpleHttpServer
+namespace NaiveHttpServer
 {
     public class RouterBuilder : IRouterBuilder
     {
