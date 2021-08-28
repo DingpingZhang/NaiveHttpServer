@@ -52,7 +52,7 @@ namespace NaiveHttpServer
 
             return async (ctx, next) =>
             {
-                bool success = ctx.Request.HttpMethod.ToUpperInvariant() switch
+                bool handled = ctx.Request.HttpMethod.ToUpperInvariant() switch
                 {
                     HttpMethods.Get => await TryMatch(getRoutes, ctx),
                     HttpMethods.Post => await TryMatch(postRoutes, ctx),
@@ -61,7 +61,7 @@ namespace NaiveHttpServer
                     _ => false,
                 };
 
-                if (!success)
+                if (!handled)
                 {
                     await next();
                 }
@@ -87,19 +87,17 @@ namespace NaiveHttpServer
         {
             HashSet<string> parameterNames = new();
             string urlRegex = PathParameterRegex
-                .Replace(url, match =>
+                .Replace(url.Trim('/'), match =>
                 {
                     if (!parameterNames.Add(match.Value))
                     {
-                        throw new ArgumentException($"Cannot contains duplicate variable name: '{match.Value}'.",
-                            nameof(url));
+                        throw new ArgumentException($"Cannot contains duplicate variable name: '{match.Value}'.", nameof(url));
                     }
 
-                    return $"(?<{match.Groups[1]}>.+?)$";
-                })
-                .Replace("$/", "/");
+                    return $"(?<{match.Groups[1]}>.+?)";
+                });
 
-            return new Regex(urlRegex, RegexOptions.Compiled);
+            return new Regex($"{urlRegex}$", RegexOptions.Compiled);
         }
 
         private static async Task<bool> TryMatch(IEnumerable<(Regex regex, Func<Context, Task> handler)> routes, Context ctx)

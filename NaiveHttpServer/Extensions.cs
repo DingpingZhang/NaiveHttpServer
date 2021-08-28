@@ -25,16 +25,6 @@ namespace NaiveHttpServer
             response.ContentLength64 = bytes.Length;
         }
 
-        public static async Task Error(this HttpListenerResponse response, string errorCode, string message)
-        {
-            await response.Json(new
-            {
-                errorCode,
-                message,
-            });
-            response.StatusCode = 500;
-        }
-
         public static async Task File(this HttpListenerResponse response, string filePath)
         {
             if (!System.IO.File.Exists(filePath))
@@ -47,6 +37,16 @@ namespace NaiveHttpServer
                 await stream.CopyToAsync(response.OutputStream);
                 response.ContentType = MimeTypes.GetMimeType(filePath);
                 response.ContentLength64 = stream.Length;
+            });
+        }
+
+        public static async Task Error(this HttpListenerResponse response, string errorCode, string message, int statusCode = 500)
+        {
+            response.StatusCode = statusCode;
+            await response.Json(new
+            {
+                errorCode,
+                message,
             });
         }
 

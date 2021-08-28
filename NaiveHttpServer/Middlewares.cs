@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace NaiveHttpServer
 {
@@ -50,22 +51,24 @@ namespace NaiveHttpServer
             {
                 ctx.Response.StatusCode = 404;
                 await ctx.Response.Error(
-                    ErrorCodes.ApiNotFound,
+                    ErrorCodes.NotFoundApi,
                     $"Not found this api: '{ctx.Request.RawUrl}', and please read the API document: {documentUrl}.");
             };
         }
 
-        public static Middleware<Context> StaticFiles(string route, string rootDir)
+        public static Middleware<Context> StaticFile(string route, string rootDir)
         {
             return async (ctx, next) =>
             {
-                if (!ctx.Request.RawUrl.StartsWith(route))
+                string relativePath = ctx.Request.RawUrl.TrimStart('/');
+                bool handled = relativePath.StartsWith(route);
+                if (!handled)
                 {
                     await next();
                     return;
                 }
 
-                string requestPath = ctx.Request.Url.AbsolutePath
+                string requestPath = HttpUtility.UrlDecode(relativePath)
                     .Substring(route.Length)
                     .ToLowerInvariant()
                     .TrimStart('/', '\\');
@@ -100,8 +103,9 @@ namespace NaiveHttpServer
             }
             else
             {
-                logger.Warning($"Not found the file: '{filePath}'.");
-                response.StatusCode = 404;
+                string message = $"Not found the file: '{filePath}'.";
+                logger.Warning(message);
+                await response.Error(ErrorCodes.NotFoundFile, message, 404);
             }
         }
 

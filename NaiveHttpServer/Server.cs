@@ -55,12 +55,7 @@ namespace NaiveHttpServer
 
         public void Stop()
         {
-            if (_listener is null)
-            {
-                return;
-            }
-
-            if (_listener.IsListening)
+            if (_listener is { IsListening: true })
             {
                 _listener.Stop();
                 _logger.Info("Http server has been stopped.");
@@ -99,8 +94,8 @@ namespace NaiveHttpServer
                     }
                     catch (HttpListenerException e)
                     {
-                        const int ERROR_OPERATION_ABORTED = 995;
-                        if (e.ErrorCode == ERROR_OPERATION_ABORTED)
+                        const int errorOperationAborted = 995;
+                        if (e.ErrorCode == errorOperationAborted)
                         {
                             // The IO operation has been aborted because of either a thread exit or an application request.
                             break;
