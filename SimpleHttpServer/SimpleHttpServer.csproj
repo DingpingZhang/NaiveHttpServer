@@ -1,13 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <Version>0.1.0</Version>
     <LangVersion>latest</LangVersion>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
+
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+    <Authors>Dingping Zhang</Authors>
+    <Copyright>Copyright (c) 2020-2021 Dingping Zhang</Copyright>
+    <PackageProjectUrl>https://github.com/DingpingZhang/SimpleHttpServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DingpingZhang/SimpleHttpServer</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>A simple C# http server based on the HttpListener.</Description>
+    <PackageTags>http;http-server;file-server;simple-http-server</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="[12.0.1,)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net45'" Include="System.ValueTuple" Version="[4.5.0,)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Web" />
   </ItemGroup>
 
   <ItemGroup>

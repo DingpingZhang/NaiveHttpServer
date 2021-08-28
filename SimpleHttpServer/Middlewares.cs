@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -77,7 +77,7 @@ namespace SimpleHttpServer
                         await ReadLocalFile(filePath, ctx.Response, ctx.Logger);
                         break;
                     case HttpMethods.Put:
-                        await WriteLocalFile(filePath, ctx.Request, ctx.Logger);
+                        await WriteLocalFile(filePath, ctx.Request);
                         ctx.Response.StatusCode = 204;
                         break;
                 }
@@ -105,7 +105,7 @@ namespace SimpleHttpServer
             }
         }
 
-        private static Task WriteLocalFile(string filePath, HttpListenerRequest request, ILogger logger)
+        private static Task WriteLocalFile(string filePath, HttpListenerRequest request)
         {
             return FileHelper.WriteAsync(filePath, stream => request.InputStream.CopyToAsync(stream));
         }
@@ -117,7 +117,13 @@ namespace SimpleHttpServer
 
         public static Task Run<T>(this Middleware<T> middleware, T ctx)
         {
-            return middleware(ctx, () => Task.CompletedTask);
+            return middleware(ctx, () =>
+#if NET45
+                Task.FromResult(0)
+#else
+                Task.CompletedTask
+#endif
+            );
         }
     }
 }
