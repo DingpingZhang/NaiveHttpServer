@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -105,12 +106,12 @@ namespace SimpleHttpServer
         {
             string requestPath = ctx.Request.Url.LocalPath.ToLowerInvariant();
 
-            foreach (var (regex, handler) in routes)
+            foreach ((Regex regex, Func<Context, Task> handler) in routes)
             {
                 Match match = regex.Match(requestPath);
                 if (match.Success)
                 {
-                    var query = HttpUtility.ParseQueryString(ctx.Request.Url.Query, Encoding.UTF8);
+                    NameValueCollection query = HttpUtility.ParseQueryString(ctx.Request.Url.Query, Encoding.UTF8);
 
                     ctx.TryGetParameter = (string key, out string value) =>
                     {
