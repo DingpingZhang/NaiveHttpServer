@@ -19,10 +19,10 @@ namespace NaiveHttpServer
             string jsonText = value.ToJson();
             byte[] bytes = Encoding.UTF8.GetBytes(jsonText);
 
-            await response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
             response.ContentEncoding = Encoding.UTF8;
             response.ContentType = "application/json";
             response.ContentLength64 = bytes.Length;
+            await response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
         }
 
         public static async Task File(this HttpListenerResponse response, string filePath)
