@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <Version>0.1.0</Version>
     <LangVersion>latest</LangVersion>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -20,12 +20,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="[12.0.1,)" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net45'" Include="System.ValueTuple" Version="[4.5.0,)" />
+    <PackageReference Include="Newtonsoft.Json" Version="[13.0.1,)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net462'" Include="System.ValueTuple" Version="[4.5.0,)" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Web" />
+    <Reference Condition="'$(TargetFramework)' == 'net462'" Include="System.Web" />
   </ItemGroup>
 
   <ItemGroup>
