@@ -1,11 +1,12 @@
-# NaiveHttpServer [![version](https://img.shields.io/badge/version-0.1.0-orange)](https://www.nuget.org/packages/NaiveHttpServer)
+# NaiveHttpServer [![version](https://img.shields.io/nuget/v/NaiveHttpServer.svg)](https://www.nuget.org/packages/NaiveHttpServer)
 
 A simple C# http server based on the HttpListener.
 
 ## How to Use
 
 ```csharp
-Middleware<Context> router = new RouterBuilder()
+// Build Routers
+var router = new RouterBuilder()
     .Get("/user/:id", async ctx =>
     {
         // Gets parameters from URL or QUERY string by name.
@@ -28,8 +29,10 @@ Middleware<Context> router = new RouterBuilder()
     .Delete("/user/:id", async ctx => { /* TODO: Do something. */ })
     .Build();
 
-Server server = new("localhost", 2333);
+// Create server instance
+var server = new Server("localhost", 2333);
 
+// Configure server
 server
     .Use(Middlewares.Log)
     .Use(Middlewares.Execute)
@@ -37,5 +40,6 @@ server
     .Use(Middlewares.StaticFile("/files", Environment.CurrentDirectory))
     .Use(Middlewares.NotFound(documentUrl: "http://api.project.com/v1"));
 
+// Launch server
 server.Start();
 ```
