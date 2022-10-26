@@ -34,9 +34,9 @@ namespace NaiveHttpServer
 
             await FileHelper.ReadAsync(filePath, async stream =>
             {
-                await stream.CopyToAsync(response.OutputStream);
                 response.ContentType = MimeTypes.GetMimeType(filePath);
                 response.ContentLength64 = stream.Length;
+                await stream.CopyToAsync(response.OutputStream);
             });
         }
 

@@ -60,7 +60,8 @@ namespace NaiveHttpServer
         {
             return async (ctx, next) =>
             {
-                string relativePath = ctx.Request.RawUrl.TrimStart('/');
+                // Don't use Request.RawUrl, because it contains url parameters. (e.g. '?a=1&b=2')
+                string relativePath = ctx.Request.Url.AbsolutePath.TrimStart('/');
                 bool handled = relativePath.StartsWith(route);
                 if (!handled)
                 {
